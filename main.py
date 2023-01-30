@@ -431,11 +431,39 @@ def find_func(event =None):
         new_content = content.replace(word, replace_text)
         text_editor.delete(1.0, tk.END)
         text_editor.insert(1.0, new_content)
+        
+# Диалоговое окно поиска
+    find_dialogue = tk.Toplevel()
+    find_dialogue.geometry("375x250+500+200")
+    find_dialogue.title("Поиск")
+    find_dialogue.resizable(0,0)
+
+    # окно
+    find_frame = ttk.LabelFrame(find_dialogue, text="Найти или заменить")
+    find_frame.pack(pady=20)
+
+
+    text_find_label = ttk.Label(find_frame, text ="Найти : ")
+    text_replace_label = ttk.Label(find_frame, text= "Заменить на :")
 
 
 
+    find_input = ttk.Entry(find_frame, width = 30)
+    replace_input =ttk.Entry(find_frame, width=30)
 
+    find_button = ttk.Button(find_frame, text ="Найти", command= find)
+    replace_button= ttk.Button(find_frame, text= "Заменить", command= replace)
 
+    text_find_label.grid(row= 0, column =0, padx=4, pady =4)
+    text_replace_label.grid(row=1, column=0, padx=4, pady =4)
+
+    find_input.grid(row= 0, column=1, padx=4, pady=4)
+    replace_input.grid(row= 1, column=1, padx=4, pady=4)
+
+    find_button.grid(row=2, column =0, padx=8, pady=4)
+    replace_button.grid(row=2, column=2, padx=8, pady=4)
+
+    find_dialogue.mainloop()
 
 ## команды редактирования текста
 
