@@ -100,6 +100,11 @@ bold_icon= tk.PhotoImage(file="icons2/bold.png")
 bold_btn= ttk.Button(tool_bar, image=bold_icon)
 bold_btn.grid(row=0, column=2, padx=5)
 
+# Кнопка курсива
+italic_icon= tk.PhotoImage(file="icons2/italic.png")
+italic_btn = ttk.Button(tool_bar, image=italic_icon)
+italic_btn.grid(row=0, column=3, padx=5)
+
 # кнопка подчеркивания
 underline_icon= tk.PhotoImage(file="icons2/underline.png")
 underline_btn= ttk.Button(tool_bar, image=underline_icon)
@@ -180,6 +185,15 @@ def change_italic():
         text_editor.config(font=(current_font_family, current_font_size, "normal"))
 
 italic_btn.configure(command= change_italic)
+
+def change_bold():
+    text_property=tk.font.Font(font=text_editor["font"])  #dictionary
+    if text_property.actual()["weight"] == "normal":
+        text_editor.config(font=(current_font_family, current_font_size, "bold"))
+    if text_property.actual()["weight"] == "bold":
+        text_editor.config(font=(current_font_family, current_font_size, "normal"))
+
+bold_btn.configure(command= change_bold)
 
 # Подчеркивание
 def change_underline():
