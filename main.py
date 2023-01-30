@@ -105,36 +105,41 @@ underline_icon= tk.PhotoImage(file="icons2/underline.png")
 underline_btn= ttk.Button(tool_bar, image=underline_icon)
 underline_btn.grid(row=0, column=4, padx=5)
 
+# кнопка перечеркивания
+strikeout_icon= tk.PhotoImage(file="icons2/strike.png")
+strikeout_btn = ttk.Button(tool_bar, image=strikeout_icon)
+strikeout_btn.grid(row=0, column=5, padx=5)
+
 # кнопка смены цвета
 font_color_icon= tk.PhotoImage(file="icons2/font_color.png")
 font_color_btn= ttk.Button(tool_bar, image=font_color_icon)
-font_color_btn.grid(row=0, column=5, padx=5)
+font_color_btn.grid(row=0, column=6, padx=5)
 
 # выравнивание по левой стороне
 
 align_left_icon= tk.PhotoImage(file="icons2/align_left.png")
 align_left_btn= ttk.Button(tool_bar, image=align_left_icon)
-align_left_btn.grid(row=0, column=6, padx=5)
+align_left_btn.grid(row=0, column=7, padx=5)
 
 # выравнивание по центру
 align_center_icon= tk.PhotoImage(file="icons2/align_center.png")
 align_center_btn= ttk.Button(tool_bar, image=align_center_icon)
-align_center_btn.grid(row=0, column=7, padx=5)
+align_center_btn.grid(row=0, column=8, padx=5)
 
 #выравнивание по правой стороне
 align_right_icon= tk.PhotoImage(file="icons2/align_right.png")
 align_right_btn= ttk.Button(tool_bar, image=align_right_icon)
-align_right_btn.grid(row=0, column=8, padx=5)
+align_right_btn.grid(row=0, column=9, padx=5)
 
 #Прочитать тескт
 speak_icon = tk.PhotoImage(file="icons2/read.png")
 speak_btn = ttk.Button(tool_bar, image=speak_icon, text="Прочитать", compound="left")
-speak_btn.grid(row=0, column=9, padx=5)
+speak_btn.grid(row=0, column=10, padx=5)
 
 #Преобразование  в слова
 talk_icon = tk.PhotoImage(file="icons2/speech.png")
 talk_btn = ttk.Button(tool_bar, image=talk_icon, text="Диктовка", compound="left")
-talk_btn.grid(row=0, column=10, padx=5)
+talk_btn.grid(row=0, column=11, padx=5)
 
 
 text_editor=tk.Text(main_application)
@@ -185,6 +190,15 @@ def change_underline():
         text_editor.config(font=(current_font_family, current_font_size, "normal"))
 
 underline_btn.configure(command= change_underline)
+
+def change_strikeout():
+    text_property=tk.font.Font(font=text_editor["font"])  #dictionary
+    if text_property.actual()["overstrike"] == 0:
+        text_editor.config(font=(current_font_family, current_font_size, "overstrike"))
+    if text_property.actual()["overstrike"] == 1:
+        text_editor.config(font=(current_font_family, current_font_size, "normal"))
+
+strikeout_btn.configure(command= change_strikeout)
 
 
 # Цветовые темы
