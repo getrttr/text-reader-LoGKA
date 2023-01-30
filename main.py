@@ -100,41 +100,51 @@ bold_icon= tk.PhotoImage(file="icons2/bold.png")
 bold_btn= ttk.Button(tool_bar, image=bold_icon)
 bold_btn.grid(row=0, column=2, padx=5)
 
+# Кнопка курсива
+italic_icon= tk.PhotoImage(file="icons2/italic.png")
+italic_btn = ttk.Button(tool_bar, image=italic_icon)
+italic_btn.grid(row=0, column=3, padx=5)
+
 # кнопка подчеркивания
 underline_icon= tk.PhotoImage(file="icons2/underline.png")
 underline_btn= ttk.Button(tool_bar, image=underline_icon)
 underline_btn.grid(row=0, column=4, padx=5)
 
+# кнопка перечеркивания
+strikeout_icon= tk.PhotoImage(file="icons2/strike.png")
+strikeout_btn = ttk.Button(tool_bar, image=strikeout_icon)
+strikeout_btn.grid(row=0, column=5, padx=5)
+
 # кнопка смены цвета
 font_color_icon= tk.PhotoImage(file="icons2/font_color.png")
 font_color_btn= ttk.Button(tool_bar, image=font_color_icon)
-font_color_btn.grid(row=0, column=5, padx=5)
+font_color_btn.grid(row=0, column=6, padx=5)
 
 # выравнивание по левой стороне
 
 align_left_icon= tk.PhotoImage(file="icons2/align_left.png")
 align_left_btn= ttk.Button(tool_bar, image=align_left_icon)
-align_left_btn.grid(row=0, column=6, padx=5)
+align_left_btn.grid(row=0, column=7, padx=5)
 
 # выравнивание по центру
 align_center_icon= tk.PhotoImage(file="icons2/align_center.png")
 align_center_btn= ttk.Button(tool_bar, image=align_center_icon)
-align_center_btn.grid(row=0, column=7, padx=5)
+align_center_btn.grid(row=0, column=8, padx=5)
 
 #выравнивание по правой стороне
 align_right_icon= tk.PhotoImage(file="icons2/align_right.png")
 align_right_btn= ttk.Button(tool_bar, image=align_right_icon)
-align_right_btn.grid(row=0, column=8, padx=5)
+align_right_btn.grid(row=0, column=9, padx=5)
 
 #Прочитать тескт
 speak_icon = tk.PhotoImage(file="icons2/read.png")
 speak_btn = ttk.Button(tool_bar, image=speak_icon, text="Прочитать", compound="left")
-speak_btn.grid(row=0, column=9, padx=5)
+speak_btn.grid(row=0, column=10, padx=5)
 
 #Преобразование  в слова
 talk_icon = tk.PhotoImage(file="icons2/speech.png")
 talk_btn = ttk.Button(tool_bar, image=talk_icon, text="Диктовка", compound="left")
-talk_btn.grid(row=0, column=10, padx=5)
+talk_btn.grid(row=0, column=11, padx=5)
 
 
 text_editor=tk.Text(main_application)
@@ -176,6 +186,15 @@ def change_italic():
 
 italic_btn.configure(command= change_italic)
 
+def change_bold():
+    text_property=tk.font.Font(font=text_editor["font"])  #dictionary
+    if text_property.actual()["weight"] == "normal":
+        text_editor.config(font=(current_font_family, current_font_size, "bold"))
+    if text_property.actual()["weight"] == "bold":
+        text_editor.config(font=(current_font_family, current_font_size, "normal"))
+
+bold_btn.configure(command= change_bold)
+
 # Подчеркивание
 def change_underline():
     text_property=tk.font.Font(font=text_editor["font"])  #dictionary
@@ -185,6 +204,15 @@ def change_underline():
         text_editor.config(font=(current_font_family, current_font_size, "normal"))
 
 underline_btn.configure(command= change_underline)
+
+def change_strikeout():
+    text_property=tk.font.Font(font=text_editor["font"])  #dictionary
+    if text_property.actual()["overstrike"] == 0:
+        text_editor.config(font=(current_font_family, current_font_size, "overstrike"))
+    if text_property.actual()["overstrike"] == 1:
+        text_editor.config(font=(current_font_family, current_font_size, "normal"))
+
+strikeout_btn.configure(command= change_strikeout)
 
 
 # Цветовые темы
@@ -403,11 +431,39 @@ def find_func(event =None):
         new_content = content.replace(word, replace_text)
         text_editor.delete(1.0, tk.END)
         text_editor.insert(1.0, new_content)
+        
+# Диалоговое окно поиска
+    find_dialogue = tk.Toplevel()
+    find_dialogue.geometry("375x250+500+200")
+    find_dialogue.title("Поиск")
+    find_dialogue.resizable(0,0)
+
+    # окно
+    find_frame = ttk.LabelFrame(find_dialogue, text="Найти или заменить")
+    find_frame.pack(pady=20)
+
+
+    text_find_label = ttk.Label(find_frame, text ="Найти : ")
+    text_replace_label = ttk.Label(find_frame, text= "Заменить на :")
 
 
 
+    find_input = ttk.Entry(find_frame, width = 30)
+    replace_input =ttk.Entry(find_frame, width=30)
 
+    find_button = ttk.Button(find_frame, text ="Найти", command= find)
+    replace_button= ttk.Button(find_frame, text= "Заменить", command= replace)
 
+    text_find_label.grid(row= 0, column =0, padx=4, pady =4)
+    text_replace_label.grid(row=1, column=0, padx=4, pady =4)
+
+    find_input.grid(row= 0, column=1, padx=4, pady=4)
+    replace_input.grid(row= 1, column=1, padx=4, pady=4)
+
+    find_button.grid(row=2, column =0, padx=8, pady=4)
+    replace_button.grid(row=2, column=2, padx=8, pady=4)
+
+    find_dialogue.mainloop()
 
 ## команды редактирования текста
 
